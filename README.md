@@ -5,7 +5,7 @@ Este repositório contém dois scripts em Python que automatizam tarefas utiliza
 
 ### Arquivos:
 1. **py_atalhos.py**: Um conjunto de comandos PyAutoGUI para referência rápida.
-2. **funcoes.py**: Um script que automatiza tarefas repetitivas utilizando eventos de teclado e mouse.
+2. **funções.py**: Um script que automatiza tarefas repetitivas utilizando eventos de teclado e mouse.
 
 ---
 
