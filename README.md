@@ -1,45 +1,104 @@
-📌 Atalhos e Funções com PyAutoGUI
+# Automatizando Tarefas com PyAutoGUI
 
-Este repositório contém scripts em Python que utilizam a biblioteca pyautogui para automação de tarefas repetitivas, aumentando a produtividade e a velocidade no trabalho.
+## Visão Geral
+Este repositório contém dois scripts em Python que automatizam tarefas utilizando a biblioteca PyAutoGUI. Os scripts proporcionam acesso rápido a ações comuns de teclado e mouse, melhorando a eficiência do fluxo de trabalho.
 
-📂 Arquivos
+### Arquivos:
+1. **py_atalhos.py**: Um conjunto de comandos PyAutoGUI para referência rápida.
+2. **funcoes.py**: Um script que automatiza tarefas repetitivas utilizando eventos de teclado e mouse.
 
-1️⃣ py_atalhos.py
+---
 
-Este arquivo inclui uma coleção de comandos prontos para manipulação do mouse e do teclado com pyautogui. Ele pode ser utilizado como um repositório de referência rápida para atalhos e comandos comuns, incluindo:
+## py_atalhos.py
 
-Obtenção da posição do mouse.
+### Descrição
+Este script contém um conjunto de funções frequentemente usadas do PyAutoGUI, como:
+- Verificar a posição do mouse.
+- Simular pressionamento de teclas.
+- Utilizar atalhos de teclado.
+- Clicar e rolar com o mouse.
 
-Simulação de pressionamento de teclas.
+### Funcionalidades
+- **Rastreamento da Posição do Mouse:** Exibe as coordenadas do cursor após um curto intervalo.
+- **Controle do Teclado:** Simula pressionamento de teclas e combinações.
+- **Controle do Mouse:** Realiza cliques simples, duplos, cliques com o botão direito e rolagens em posições especificadas.
+- **Simulação de Digitação:** Digita automaticamente textos com intervalos configuráveis.
 
-Digitação de textos automaticamente.
+### Exemplo de Uso
+```python
+import pyautogui
+import time
 
-Uso de combinações de teclas (atalhos).
+time.sleep(5)  # Aguarda 5 segundos
+print(pyautogui.position())  # Obtém a posição do mouse
 
-Cliques do mouse (simples, duplo, triplo, com botão direito, entre outros).
+pyautogui.write('Olá, mundo!', interval=0.25)  # Digitação com atraso
+pyautogui.hotkey('ctrl', 'c')  # Copia o texto
+pyautogui.click(x=100, y=200)  # Clica na posição (100, 200)
+pyautogui.scroll(10)  # Rola para cima
+```
 
-Rolagem do mouse.
+---
 
-2️⃣ funções.py
+## funcoes.py
 
-Este arquivo implementa uma função automatizada para copiar e colar textos utilizando pyautogui, bem como um atalho para encerrar a execução pressionando a tecla q. Ele contém:
+### Descrição
+Este script automatiza uma série de tarefas repetitivas, como copiar, alternar entre janelas, clicar e colar texto. Ele roda em um loop e pode ser interrompido ao pressionar a tecla 'q'.
 
-**Função **``: Executa uma série de comandos automaticamente, incluindo copiar, colar e interagir com janelas.
+### Funcionalidades
+- **Execução Automatizada de Tarefas:** Copia texto, alterna para outro aplicativo, cola o texto e clica em locais específicos.
+- **Multithreading:** Utiliza threads para executar a automação e um listener em segundo plano para o comando de parada.
+- **Interrupção pelo Teclado:** Pressione 'q' para parar a execução.
 
-**Função **``: Monitora a tecla q para interromper o programa.
+### Exemplo de Uso
+```python
+import time
+import pyautogui
+import threading
+import os
+import keyboard
 
-Execução em threads: Permite que ambas as funções rodem simultaneamente sem travar a execução.
+def automatizar_tarefa():
+    while True:
+        time.sleep(3)
+        pyautogui.hotkey('ctrl', 'c')  # Copiar
+        time.sleep(0.5)
+        pyautogui.hotkey('winleft', '4')  # Alternar janela
+        time.sleep(0.5)
+        pyautogui.doubleClick(x=616, y=267)
+        time.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'v')  # Colar
+        time.sleep(0.5)
+        pyautogui.click(x=658, y=365)  # Confirmar ação
 
-📌 Requisitos
+def parar_script():
+    while True:
+        if keyboard.is_pressed('q'):
+            os._exit(0)  # Interrompe a execução
 
-Para executar os scripts, é necessário instalar as bibliotecas:
+threading.Thread(target=parar_script).start()
+pyautogui.hotkey('winleft', '5')  # Abre o aplicativo 5
+threading.Thread(target=automatizar_tarefa).start()
+```
 
-time
-pyautogui
-threading
-os
-keyboard
+---
 
-⚠️ Aviso
+## Requisitos
 
-Os scripts manipulam diretamente o mouse e o teclado. Certifique-se de testá-los em um ambiente seguro antes de utilizá-los em aplicações importantes.
+Para rodar esses scripts, instale as seguintes dependências:
+```bash
+pip install pyautogui keyboard
+```
+
+---
+
+## Notas
+- Ajuste as coordenadas dos cliques do mouse para corresponder à resolução da sua tela.
+- Certifique-se de que os aplicativos necessários estejam abertos antes de executar `funcoes.py`.
+- Pressione 'q' a qualquer momento para interromper a automação.
+
+---
+
+## Licença
+Este projeto é open-source e está disponível para uso pessoal e profissional.
+
